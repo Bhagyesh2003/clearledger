@@ -21,6 +21,6 @@ spring:
         format_sql: true
 
 jwt:
-  secret: clearledger-super-secret-jwt-key-change-this-in-prod-min-256-bits
+  secret: ${JWT_SECRET:clearledger-super-secret-jwt-key-change-this-in-prod-min-256-bits}
   access-token-expiry: 900000       # 15 minutes in ms
   refresh-token-expiry: 604800000   # 7 days in ms

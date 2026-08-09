@@ -43,8 +43,8 @@ spring:
       # Add it back per-route later if needed.
 
 jwt:
-  secret: clearledger-super-secret-jwt-key-change-this-in-prod-min-256-bits
+  secret: ${JWT_SECRET:clearledger-super-secret-jwt-key-change-this-in-prod-min-256-bits}
 
 logging:
   level:
-    org.springframework.cloud.gateway: DEBUG
+    org.springframework.cloud.gateway: INFO
