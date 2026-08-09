@@ -1,0 +1,30 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: expense-service
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5435/expense_db}
+    username: ${SPRING_DATASOURCE_USERNAME:clearledger}
+    password: ${SPRING_DATASOURCE_PASSWORD:clearledger123}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+#The kafka section is new. bootstrap-servers is the Kafka broker address.
+#key-serializer handles the message key (a String). value-serializer handles the message body
+#? we use JsonSerializer so our Java event object is automatically converted to JSON.

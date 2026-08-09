@@ -1,0 +1,26 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: user-service
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/users_db}
+    username: ${SPRING_DATASOURCE_USERNAME:clearledger}
+    password: ${SPRING_DATASOURCE_PASSWORD:clearledger123}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update        # auto-creates tables on startup
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+jwt:
+  secret: clearledger-super-secret-jwt-key-change-this-in-prod-min-256-bits
+  access-token-expiry: 900000       # 15 minutes in ms
+  refresh-token-expiry: 604800000   # 7 days in ms
