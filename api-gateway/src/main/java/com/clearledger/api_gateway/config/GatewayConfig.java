@@ -26,7 +26,13 @@ public class GatewayConfig {
 
             // Add CORS headers to every single response —
             // before anything else in the chain runs
-            headers.set("Access-Control-Allow-Origin",      "http://localhost:5173");
+            headers.set(
+                    "Access-Control-Allow-Origin",
+                    System.getenv().getOrDefault(
+                            "ALLOWED_ORIGIN",
+                            "http://localhost:5173"
+                    )
+            );
             headers.set("Access-Control-Allow-Methods",     "GET,POST,PUT,DELETE,OPTIONS");
             headers.set("Access-Control-Allow-Headers",     "Authorization,Content-Type,X-User-Id");
             headers.set("Access-Control-Expose-Headers",    "Authorization");
