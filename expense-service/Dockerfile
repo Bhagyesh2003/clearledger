@@ -15,6 +15,19 @@ RUN mvn -f expense-service/pom.xml clean package -DskipTests
 # ── Stage 2: Run ────────────────────────────────────────────
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
+
+COPY expense-service/ca.pem /tmp/ca.pem
+
+RUN keytool -importcert \
+    -noprompt \
+    -trustcacerts \
+    -alias aiven-kafka-ca \
+    -file /tmp/ca.pem \
+    -keystore "$JAVA_HOME/lib/security/cacerts" \
+    -storepass changeit && \
+    rm /tmp/ca.pem
+
 COPY --from=build /workspace/expense-service/target/*.jar app.jar
+
 EXPOSE 8083
 ENTRYPOINT ["java", "-jar", "app.jar"]
